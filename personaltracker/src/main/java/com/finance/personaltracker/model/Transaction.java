@@ -15,6 +15,9 @@ public class Transaction {
     private String type; //income or expense
     private String category;
     private Double amount;
+
+    @Temporal(TemporalType.DATE)
     private Date date;
+    
     private String description;
 }
