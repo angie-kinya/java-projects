@@ -1,8 +1,15 @@
 package com.finance.personaltracker.controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +25,34 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping
-    public List<Transaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
+    public Page<Transaction> getAllTransactions(
+            @PageableDefault(page = 0, size = 10, sort = "date", direction = Sort.Direction.DESC) Pageable pageable) {
+        return transactionService.getAllTransactions(pageable);
+    }
+
+    // Add endpoints for filtering
+    @GetMapping("/filter/type")
+    public List<Transaction> getTransactionsByType(@RequestParam String type) {
+        return transactionService.getTransactionsByType(type);
+    }
+
+    @GetMapping("/filter/category")
+    public List<Transaction> getTransactionsByCategory(@RequestParam String category) {
+        return transactionService.getTransactionsByCategory(category);
+    }
+
+    @GetMapping("/filter")
+    public List<Transaction> getTransactionsByDateRange(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+        return transactionService.getTransactionByDateRange(startDate, endDate);
+    }
+
+    @GetMapping("/summary")
+    public Map<String, Double> getMonthlySummary(
+            @RequestParam("month") int month,
+            @RequestParam("year") int year) {
+        return transactionService.getMonthlySummary(month, year);
     }
     
     @PostMapping 
