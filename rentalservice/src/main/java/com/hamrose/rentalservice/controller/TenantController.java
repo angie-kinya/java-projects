@@ -1,5 +1,6 @@
 package com.hamrose.rentalservice.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,10 @@ public class TenantController {
     @GetMapping("/{houseNumber}")
     public List<Tenant> getTenant(@PathVariable String houseNumber) {
         List<Tenant> tenant = tenantService.getTenantDetails(houseNumber);
-        return tenant;
+        if (tenant != null) {
+            return tenant;
+        } else {
+            return Collections.emptyList();
+        }
     }
 }

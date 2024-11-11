@@ -17,4 +17,6 @@ public class TenantService {
     public List<Tenant> getTenantDetails(String houseNumber) {
         return tenantRepository.findByHouseNumber(houseNumber);
     }
+    //mock data for testing
+
 }
