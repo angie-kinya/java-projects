@@ -36,3 +36,44 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e0e0e0;
+}
+
+.form-wrapper {
+  width: 40%;
+  min-width: 320px;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.task-list .list-group-item {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.task-list h5 {
+  margin-bottom: 5px;
+}
+
+.task-list p {
+  margin: 0;
+}

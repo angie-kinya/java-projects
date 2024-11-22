@@ -28,12 +28,13 @@ public class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/tasks")
     public Task createTask(@RequestBody Task task) {
+
         return taskService.createTask(task);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/tasks/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
         try {
             return ResponseEntity.ok(taskService.updateTask(id, task));
@@ -42,7 +43,7 @@ public class TaskController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
