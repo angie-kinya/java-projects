@@ -25,6 +25,7 @@ const TaskForm = ({ taskToEdit, onSave }) => {
             await updateTask(task.id, task);
         } else if (task){
             await createTask(task);
+
         } else {
             console.error("Task is null or undefined!");
         }

@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import {getAllTasks, deleteTask, updateTask} from '../services/taskService';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-const TaskList = ({ onEdit }) => {
-    const [tasks, setTasks] = useState([]);
-
-    useEffect(() => {
-        loadTasks();
-    }, []);
-
-    const loadTasks = async () => {
-        try {
-            const response = await getAllTasks();
-            setTasks(response.data);
-        } catch (error) {
-            console.error("Error loading tasks:", error);
-        }
-    };
-
+const TaskList = ({ tasks, onEdit }) => {
     const handleDelete = async (id) => {
         try {
-            await deleteTask(id);
-            // Refresh the task list after deletion
-            loadTasks();
+            await deleteTask(id); // Delete task from backend
+            window.location.reload(); // Reload the page to update the task list
         } catch (error) {
             console.error("Error deleting task:", error);
             alert("Failed to delete task.");
         }
+    };
+
+    const navigate = useNavigate();
+
+    const handleEdit = (task) => {
+        onEdit(task); // Set the task to edit in App.js
+        navigate("/"); // Redirect to TaskForm page
     };
 
     return (
@@ -51,7 +43,7 @@ const TaskList = ({ onEdit }) => {
                             <div>
                                 <button
                                     className="btn btn-sm btn-warning me-2"
-                                    onClick={() => onEdit(task.id)}
+                                    onClick={() => handleEdit(task)}
                                 >
                                     Update
                                 </button>
